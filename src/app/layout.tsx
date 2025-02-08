@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ui/my-shadchn/theme-provider";
+import Header from "./_Components/Header";
+import { Footer } from "./_Components/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,6 +30,7 @@ export default function RootLayout({
       <html lang="en" suppressHydrationWarning>
         <head />
         <body>
+          <Header />
           <ThemeProvider
             attribute="class"
             defaultTheme="system"
@@ -36,6 +39,7 @@ export default function RootLayout({
           >
             {children}
           </ThemeProvider>
+          <Footer />
         </body>
       </html>
     </>
