@@ -14,10 +14,11 @@ import fetchOption from "@/util/mydata";
 import { MovieType } from "@/util/movietype";
 import Image from "next/image";
 import formatVoteAverage from "@/util/functionmat";
+import Link from "next/link";
 
 export function CarouselPlugin() {
   const plugin = React.useRef(
-    Autoplay({ delay: 2000, stopOnInteraction: false })
+    Autoplay({ delay: 2200, stopOnInteraction: false })
   );
 
   const [movies, setMovies] = React.useState<MovieType[]>([]);
@@ -45,34 +46,36 @@ export function CarouselPlugin() {
       <CarouselContent className="w-full h-[600px]">
         {movies.map((movie: MovieType, index) => (
           <CarouselItem key={index} className="w-full h-full relative">
-            {/* Зураг */}
-            <Image
-              src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
-              alt={movie.title}
-              width={1280}
-              height={600}
-              className="w-full h-full object-cover"
-              priority
-            />
+            <Link href={`/catagory/${movie.id}`}>
+              {/* Зураг */}
+              <Image
+                src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
+                alt={movie.title}
+                width={1280}
+                height={600}
+                className="w-full h-full object-cover"
+                priority
+              />
 
-            <div className="absolute left-[170px] bottom-[220px] w-[350px] h-[250px] flex flex-col items-start ">
-              <p className="text-white text-[26px] font-normal leading-9">
-                Now Playing:
-              </p>
-              <p className="text-white text-3xl font-bold leading-[40px]">
-                {movie?.original_title}
-              </p>
-              <div className="flex items-center gap-2">
-                <img src="/star.svg" alt="rating" className="w-5 h-5" />
-                <p className="text-[#FAFAFA] text-lg font-semibold">
-                  {formatVoteAverage(movie?.vote_average)}
+              <div className="absolute left-[170px] bottom-[220px] w-[350px] h-[250px] flex flex-col items-start ">
+                <p className="text-white text-[26px] font-normal leading-9">
+                  Now Playing:
                 </p>
-                <p className="text-gray-400 text-base">/10</p>
+                <p className="text-white text-3xl font-bold leading-[40px]">
+                  {movie?.original_title}
+                </p>
+                <div className="flex items-center gap-2">
+                  <img src="/star.svg" alt="rating" className="w-5 h-5" />
+                  <p className="text-[#FAFAFA] text-lg font-semibold">
+                    {formatVoteAverage(movie?.vote_average)}
+                  </p>
+                  <p className="text-gray-400 text-base">/10</p>
+                </div>
+                <p className="text-[#FAFAFA] text-[15px] leading-9 line-clamp-3">
+                  {movie?.overview}
+                </p>
               </div>
-              <p className="text-[#FAFAFA] text-[15px] leading-9 line-clamp-3">
-                {movie?.overview}
-              </p>
-            </div>
+            </Link>
           </CarouselItem>
         ))}
       </CarouselContent>

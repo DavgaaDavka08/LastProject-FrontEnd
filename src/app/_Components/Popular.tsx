@@ -20,7 +20,7 @@ export default async function Popular() {
         ?.slice(0, 10)
         .map((movieup: MovieType, index: number) => {
           return (
-            <Link href={`catagory/${movieup.id}`} key={index}>
+            <Link href={`/catagory/${movieup.id}`} key={index}>
               <div
                 key={index}
                 className="w-[230px] rounded-sm h-[439px] flex flex-col p-2 items-start rounded-rounded-lg bg-secondary gap-2 "
