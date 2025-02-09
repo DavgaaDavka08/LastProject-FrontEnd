@@ -3,9 +3,10 @@ import baseUrl from "@/util/baseurl";
 import formatVoteAverage from "@/util/functionmat";
 import { MovieType } from "@/util/movietype";
 import fetchOption from "@/util/mydata";
-import Image from "next/image";
+
 import { SeeMore1 } from "./SeeMore";
 import Link from "next/link";
+import Image from "next/image";
 
 export default async function UpComing() {
   const response = await fetch(
@@ -17,7 +18,7 @@ export default async function UpComing() {
   return (
     <div
       key={data}
-      className="max-w-[1280px] flex m-auto flex-wrap gap-[32px] mb-[32px]"
+      className="max-w-[1280px]  flex m-auto flex-wrap gap-[32px] mb-[32px]"
     >
       <SeeMore1 />
       {data.results?.slice(0, 10).map((movieup: MovieType, index: number) => {

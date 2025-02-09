@@ -53,11 +53,11 @@ export function CarouselPlugin() {
                 alt={movie.title}
                 width={1280}
                 height={600}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover "
                 priority
               />
 
-              <div className="absolute left-[170px] bottom-[220px] w-[350px] h-[250px] flex flex-col items-start ">
+              <div className="absolute  left-[170px] bottom-[220px] w-[350px] h-[250px] flex flex-col items-start ">
                 <p className="text-white text-[26px] font-normal leading-9">
                   Now Playing:
                 </p>

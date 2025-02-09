@@ -13,4 +13,6 @@ export type MovieType = {
   vote_average: number;
   poster_path: boolean;
   backdrop_path: boolean;
+  total_pages: number;
+  totalPages: number;
 };

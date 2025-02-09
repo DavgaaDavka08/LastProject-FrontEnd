@@ -17,20 +17,24 @@ export default async function pagecatagory({
     fetchOption
   );
   const data = await response.json();
-  console.log("data :>> ", data);
+
   const responseStar = await fetch(
     `${baseUrl}/movie/${movieid}/credits?language=en-US`,
     fetchOption
   );
   const dataStar = await responseStar.json();
-  console.log("fdsadfdsa", dataStar);
+
   const responseSimilar = await fetch(
     `${baseUrl}/movie/${movieid}/similar?language=en-US&page=1`,
     fetchOption
   );
   const dataSimilar = await responseSimilar.json();
-  console.log("dataSimilar :>> ", dataSimilar);
-
+  const responseTrailer = await fetch(
+    `${baseUrl}/movie/${movieid}/videos?language=en-US`,
+    fetchOption
+  );
+  const dataTrailer = await responseTrailer.json();
+  console.log(dataTrailer);
   function formatVoteAverage2(vote: number) {
     const hours = Math.floor(vote / 60);
     const minutes = vote % 60;
