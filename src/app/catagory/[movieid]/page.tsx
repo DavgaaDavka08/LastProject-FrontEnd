@@ -1,6 +1,6 @@
 import baseUrl from "@/util/baseurl";
 import { TOKEN } from "@/util/constant";
-import formatVoteAverage, { formatVoteAverage2 } from "@/util/functionmat";
+import formatVoteAverage from "@/util/functionmat";
 
 import { MovieType } from "@/util/movietype";
 import fetchOption from "@/util/mydata";
@@ -30,6 +30,12 @@ export default async function pagecatagory({
   );
   const dataSimilar = await responseSimilar.json();
   console.log("dataSimilar :>> ", dataSimilar);
+
+  function formatVoteAverage2(vote: number) {
+    const hours = Math.floor(vote / 60);
+    const minutes = vote % 60;
+    return `${hours}h ${minutes}m`;
+  }
   return (
     <div className="w-[1280px] m-auto">
       <div className=" flex justify-between w-[1080px] ">
@@ -40,14 +46,15 @@ export default async function pagecatagory({
           <div className="flex w-211px m-auto  font-inter text-[18px] font-normal leading-[28px] gap-3">
             <h2>{data.release_date}</h2>
             <p>{data.adult ? "· R· " : "·PG·  "}</p>
-            <p>{formatVoteAverage(data.runtime)}</p>
+            <p>{formatVoteAverage2(data.runtime)}</p>
           </div>
         </div>
         <div>
           <p>Rating</p>
           <div className="flex">
-            <img src="/star.png" alt="" />
-            <p>{formatVoteAverage2(data.vote_average)}</p>
+            <img src="/star.svg" alt="" />
+            <p>{formatVoteAverage(data.vote_average)}</p>
+            <p className="text-gray-300 text-[14px]"> /10</p>
           </div>
           <p className="tex-[10px]">2.6k</p>
         </div>
@@ -145,7 +152,7 @@ export default async function pagecatagory({
             );
           })}
       </div>
-      <div className="flex items-start gap-8 self-stretch">
+      <div key={dataSimilar} className="flex items-start gap-8 self-stretch ">
         {dataSimilar.results
           ?.slice(0, 5)
           .map((movie: MovieType, index: number) => {
@@ -153,7 +160,7 @@ export default async function pagecatagory({
               <Link href={`/catagory/${movie.id}`}>
                 <div
                   key={index}
-                  className="w-[190px] h-[372px] flex flex-col items-start gap-1"
+                  className="w-[190px] h-[372px] flex flex-col items-start bg-secondary gap-1 px-[8px] py-[8px] rounded-sm"
                 >
                   <Image
                     src={`https://image.tmdb.org/t/p/w500${movie?.poster_path}`}
@@ -174,7 +181,6 @@ export default async function pagecatagory({
             );
           })}
       </div>
-      <div>s</div>
     </div>
   );
 }
