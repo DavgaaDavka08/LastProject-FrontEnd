@@ -1,9 +1,11 @@
+import Youtube from "@/app/Components/Youtube";
 import baseUrl from "@/util/baseurl";
 import { TOKEN } from "@/util/constant";
 import formatVoteAverage from "@/util/functionmat";
 
 import { MovieType } from "@/util/movietype";
 import fetchOption from "@/util/mydata";
+
 import Image from "next/image";
 import Link from "next/link";
 
@@ -34,7 +36,8 @@ export default async function pagecatagory({
     fetchOption
   );
   const dataTrailer = await responseTrailer.json();
-  console.log(dataTrailer);
+  const videodata = dataTrailer.results[0];
+  console.log("vodioo", videodata);
   function formatVoteAverage2(vote: number) {
     const hours = Math.floor(vote / 60);
     const minutes = vote % 60;
@@ -73,16 +76,19 @@ export default async function pagecatagory({
 
         <div className="w-[760px] h-[428px] bg-cover bg-center bg-no-repeat rounded-sm relative overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-t from-[rgba(0,0,0,0.4)] to-[rgba(0,0,0,0.4)]"></div>
-          <div
-            className="absolute inset-0"
-            style={{
-              backgroundImage: `url(https://image.tmdb.org/t/p/original${data?.backdrop_path})`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-              backgroundRepeat: "no-repeat",
-            }}
-          >
-            <div className="relative top-[300px] left-[100px]"></div>
+          <div className="flex gap-8 w-full h-[524px] relative">
+            <div>
+              <Image
+                width={1000}
+                height={1000}
+                alt=""
+                src={`https://image.tmdb.org/t/p/original${data.backdrop_path}`}
+                className="object-cover rounded-xl h-[524px]"
+              />
+              <div className="absolute z-10 top-[410px] left-[-320px]">
+                <Youtube videodata={videodata} />
+              </div>
+            </div>
           </div>
         </div>
       </div>

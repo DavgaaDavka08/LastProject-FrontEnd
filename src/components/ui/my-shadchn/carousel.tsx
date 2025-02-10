@@ -15,6 +15,10 @@ import { MovieType } from "@/util/movietype";
 import Image from "next/image";
 import formatVoteAverage from "@/util/functionmat";
 import Link from "next/link";
+import { Dialog, DialogContent, DialogHeader, DialogTrigger } from "../dialog";
+import { Play } from "next/font/google";
+import { DialogDescription, DialogTitle } from "@radix-ui/react-dialog";
+import { PlayCircle } from "lucide-react";
 
 export function CarouselPlugin() {
   const plugin = React.useRef(
@@ -22,7 +26,9 @@ export function CarouselPlugin() {
   );
 
   const [movies, setMovies] = React.useState<MovieType[]>([]);
-
+  const [videoKeys, setVideoKeys] = React.useState<{ [key: number]: string }>(
+    {}
+  );
   React.useEffect(() => {
     async function fetchMovies() {
       const response = await fetch(
@@ -31,11 +37,19 @@ export function CarouselPlugin() {
       );
       const data = await response.json();
       setMovies(data.results || []);
-      console.log("zuraggg", data);
+      const keys: { [key: number]: string } = {};
+      for (const movie of data.results) {
+        const responseTrailer = await fetch(
+          `${baseUrl}/movie/${movie.id}/videos?language=en-US`,
+          fetchOption
+        );
+        const dataTrailer = await responseTrailer.json();
+        keys[movie.id] = dataTrailer.results[0].key;
+      }
+      setVideoKeys(keys);
     }
     fetchMovies();
   }, []);
-
   return (
     <Carousel
       plugins={[plugin.current]}
@@ -76,6 +90,27 @@ export function CarouselPlugin() {
                 </p>
               </div>
             </Link>
+            <Dialog>
+              <DialogTrigger>
+                <div className="text-primary flex bg-secondary py-2 gap-2 rounded-xl px-4 w-[170px]">
+                  <PlayCircle />
+                  Watch Trailer
+                </div>
+              </DialogTrigger>
+              <DialogContent>
+                <iframe
+                  width="560"
+                  height="315"
+                  src={`https://www.youtube.com/embed/${videoKeys[movie.id]}`}
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                ></iframe>
+                <DialogHeader>
+                  <DialogTitle></DialogTitle>
+                  <DialogDescription></DialogDescription>
+                </DialogHeader>
+              </DialogContent>
+            </Dialog>
           </CarouselItem>
         ))}
       </CarouselContent>

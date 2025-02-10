@@ -60,8 +60,15 @@ export default function Search2() {
   }
 
   return (
-    <div className="w-[1280px] flex m-auto ">
+    <div className="w-[1280px] flex m-auto  relative mt-[100px]">
+      <div className="absolute top-[-90px] rigth-[20px] flex flex-col gap-4">
+        <h1 className="text-2xl font-semibold ">Search results</h1>
+        <p className="text-xl text-foreground font-semibold">
+          4 results for{movie.title}
+        </p>
+      </div>
       <div className="flex flex-wrap gap-5 lg:gap-x-12 lg:gap-y-8 w-[859px] h-[1976px]">
+        <div className="shrink-0 bg-border w-[3px] h-[1420px] border-border border absolute left-[840px] bottom-[400px] "></div>
         {movie
           ?.slice(0, 20)
           // ?.filter((genre_ids: number) => genre_ids == 80)
@@ -99,6 +106,8 @@ export default function Search2() {
       </div>
 
       <div className="flex flex-wrap gap-4 w-[387px] h-[300px]">
+        <h1 className="text-2xl font-semibold">Search by genre</h1>
+        <p className="text-base">See lists of movies by genre</p>
         <ToggleGroupDemos genre={genre} />
       </div>
     </div>

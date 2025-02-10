@@ -15,4 +15,10 @@ export type MovieType = {
   backdrop_path: boolean;
   total_pages: number;
   totalPages: number;
+  key: string;
+  iso_639_1: string;
+  iso_3166_1: string;
+  published_at: string;
+  size: number;
+  type: string;
 };
