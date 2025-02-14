@@ -45,6 +45,7 @@ export function CarouselPlugin() {
         );
         const dataTrailer = await responseTrailer.json();
         keys[movie.id] = dataTrailer.results[0].key;
+        console.log("movie :>> ", movie);
       }
       setVideoKeys(keys);
     }

@@ -12,7 +12,7 @@ export default async function Popular() {
     fetchOption
   );
   const datapopular = await incomedata.json();
-  console.log("dataaa", datapopular);
+
   return (
     <div className="max-w-[1280px] flex m-auto flex-wrap gap-[32px] mb-[32px]">
       <SeeMore2 />

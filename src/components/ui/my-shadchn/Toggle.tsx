@@ -1,13 +1,12 @@
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
 import baseUrl from "@/util/baseurl";
-import { TOKEN } from "@/util/constant";
+
 import { MovieType } from "@/util/movietype";
 import fetchOption from "@/util/mydata";
 
@@ -18,9 +17,7 @@ export default async function PopoverDemo() {
     `${baseUrl}/genre/movie/list?language=en`,
     fetchOption
   );
-
   const data = await response.json();
-
   return (
     <Popover>
       <PopoverTrigger asChild>
